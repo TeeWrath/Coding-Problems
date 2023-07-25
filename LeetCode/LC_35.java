@@ -20,7 +20,7 @@ class Solution {
 }
 
 /*USING BINARY SEARCH*/
-class Solution {
+class Sol {
     public int searchInsert(int[] nums, int target) {
         int start =0;
         int end = nums.length -1;
