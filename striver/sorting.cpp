@@ -38,11 +38,11 @@ void recBubbleSort(int arr[], int n){
         for(int j=0; j<=n-2;j++){
             if(arr[j+1]<arr[j]) {
                 swap(arr[j], arr[j+1]);
-                // didSwap++;
+                didSwap++;
             }
         }
+        if(didSwap == 0)return;
         recBubbleSort(arr,n-1);
-        // if(didSwap == 0)break;
 }
 
 void insertionSort(int arr[], int n){
@@ -53,6 +53,21 @@ void insertionSort(int arr[], int n){
             j--;
         }
     }
+}
+
+void recInsertionSort(int arr[], int n, int i){
+    // Base case
+    if(i==n) return;
+
+        // same thing as insertion algo
+        int j=i;
+        while(j>0 && arr[j-1] > arr[j]){
+            swap(arr[j-1], arr[j]);
+            j--;
+        }
+
+    // recursively moving the outer loop
+    recInsertionSort(arr,n,i+1);
 }
 
 void merge(int arr[], int l, int mid, int h){
@@ -126,7 +141,8 @@ int main(){
     // insertionSort(arr,9);
     // mergeSort(arr,0, 8);
     // quickSort(arr,0,8);
-    recBubbleSort(arr,9);
+    // recBubbleSort(arr,9);
+    recInsertionSort(arr,9,0);
     printArray(arr,9);
     return 0;
 }
