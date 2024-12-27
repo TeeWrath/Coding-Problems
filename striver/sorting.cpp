@@ -32,6 +32,19 @@ void bubbleSort(int arr[], int n){
     }
 }
 
+void recBubbleSort(int arr[], int n){
+        int didSwap =0;
+        if(n == 1) return;
+        for(int j=0; j<=n-2;j++){
+            if(arr[j+1]<arr[j]) {
+                swap(arr[j], arr[j+1]);
+                // didSwap++;
+            }
+        }
+        recBubbleSort(arr,n-1);
+        // if(didSwap == 0)break;
+}
+
 void insertionSort(int arr[], int n){
     for(int i=0; i<n ; i++){
         int j=i;
@@ -78,14 +91,42 @@ void mergeSort(int arr[], int l, int h){
     merge(arr,l, mid, h);
 }
 
+int findPartition(int arr[], int l, int h){
+    int pivot = arr[l];
+    int i = l;
+    int j = h;
+    while(i<j){
+        while(arr[i] <= pivot && i<=h-1){
+            i++;
+        }
+        while(arr[j] > pivot && j >= l+ 1){
+            j--;
+        }
+        if(i<j) swap(arr[i], arr[j]);
+    }
+    swap(arr[l], arr[j]);
+    return j;
+}
+
+void quickSort(int arr[], int l, int h){
+    if(l<h){
+        int pIndex = findPartition(arr,l,h);
+        quickSort(arr,l,pIndex-1);
+        quickSort(arr,pIndex+1,h);
+    }
+}
+
 int main(){
     int arr[] = {52 ,14 ,46 ,13 ,9 ,7 ,2 ,100 ,83};
+    // int arr[] = {5,4,3,2,1};
     cout << "Before sorting ";
     printArray(arr,9);
     // selectionSort(arr,9);
     // bubbleSort(arr,9);
     // insertionSort(arr,9);
-    mergeSort(arr,0, 8);
+    // mergeSort(arr,0, 8);
+    // quickSort(arr,0,8);
+    recBubbleSort(arr,9);
     printArray(arr,9);
     return 0;
 }
