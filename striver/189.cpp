@@ -1,4 +1,6 @@
+#include <bits/stdc++.h>
 
+using namespace std;
 // Using duplicate array
 class Solution {
 public:
