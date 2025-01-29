@@ -42,11 +42,47 @@ vector<int> pascalRow(int n){
 void pascalRowOp(int n){
     int ans = 1;
     cout<< ans << " ";
+    if(n==1) return;
     for(int i=1; i< n; i++){
         ans = (ans * (n - i))/ i; // where n = Row number, i = Column number
         cout <<  ans << " ";
     }
 }
+
+// Optimal approach pascal triangle
+void pascalTri(int n){
+    for(int i = 1; i<=n; i++){
+        pascalRowOp(i);
+        cout << endl;
+    }
+}
+
+// Leetcode solution
+class Solution {
+public:
+    vector<int> pascalRow(int n) {
+        vector<int> ans;
+        int val = 1;
+        ans.push_back(val);
+        for (int i = 1; i < n; i++) {
+            val = (val * (n - i)) / i;
+            ans.push_back(val);
+        }
+
+        return ans;
+    }
+
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+
+        for(int i=1; i<=numRows ; i++){
+            vector<int> r = pascalRow(i);
+            ans.push_back(r);
+        }
+
+        return ans;
+    }
+};
 
 int main()
 {
@@ -54,6 +90,9 @@ int main()
     // cout << pascalNum(5,3) << endl;
     // vector<int> res = pascalRow(5);
     // printArray(res);
-    pascalRowOp(5);
+    // pascalRowOp(5);
+    int n;
+    cin >> n;
+    pascalTri(n);
     return 0;
 }
