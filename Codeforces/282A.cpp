@@ -1,9 +1,12 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 char s[4];
 int x;
 int main(){
-    for (gets(s); gets(s); x += 44 - s[1]);
+    while (fgets(s, sizeof(s), stdin)) {
+        x += 44 - s[1];
+    }
     cout << x;
 }
