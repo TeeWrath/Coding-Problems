@@ -12,6 +12,7 @@ int findFloor(vector<int>& arr, int k) {
         return max;
     }
 
+// Binary Search
 int findFloorBs(vector<int>& arr, int k) {
         int n = arr.size();
         int max = -1;
