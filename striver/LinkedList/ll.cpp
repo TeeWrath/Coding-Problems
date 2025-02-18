@@ -98,6 +98,25 @@ Node* delKEle(Node* head, int k){
     return head;
 }
 
+// Insert new head in linkedlist
+Node* insertHead(Node* head, int n){
+    Node* temp = new Node(n, head);
+    return temp;
+}
+
+void insertTail(Node* head, int n){
+    if(head == nullptr){
+        head = new Node(n);
+    }
+    Node* temp = new Node(n); // points to null
+
+    Node* move = head;
+    while(move->next != nullptr){
+        move = move->next;
+    }
+    move->next = temp;
+}
+
 int main(){
     vector<int> arr = {6,1,2,3,4,5};
     Node* head = convertArrToLl(arr);
@@ -113,7 +132,9 @@ int main(){
     // head = delHead(head);
     // head = delTail(head);
     int k; cin >> k;
-    head = delKEle(head,k);
+    // head = delKEle(head,k);
+    // head = insertHead(head,k);
+    insertTail(head,k);
     temp = head;
     while(temp != nullptr){
         cout << temp->data<< " ";
