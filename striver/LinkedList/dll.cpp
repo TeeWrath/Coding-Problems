@@ -86,28 +86,36 @@ Node *delTail(Node *head)
     return head;
 }
 
-Node* delKthNode(Node* head, int k){
-    if(head == nullptr) return nullptr;
+Node *delKthNode(Node *head, int k)
+{
+    if (head == nullptr)
+        return nullptr;
 
     int cnt = 0;
-    Node* kNode = head;
-    while(kNode != nullptr){
+    Node *kNode = head;
+    while (kNode != nullptr)
+    {
         cnt++;
-        if(cnt == k) break;
+        if (cnt == k)
+            break;
         kNode = kNode->next;
     }
 
-    if (kNode == nullptr) return head; // K is out of bounds, return original list
+    if (kNode == nullptr)
+        return head; // K is out of bounds, return original list
 
-    Node* prev = kNode->back;
-    Node* front = kNode->next;
+    Node *prev = kNode->back;
+    Node *front = kNode->next;
 
-    if(prev == nullptr && front == nullptr) return nullptr;
-    else if(prev == nullptr) return delHead(head);
-    else if(front == nullptr) return delTail(head); // FIXED: == instead of =
+    if (prev == nullptr && front == nullptr)
+        return nullptr;
+    else if (prev == nullptr)
+        return delHead(head);
+    else if (front == nullptr)
+        return delTail(head); // FIXED: == instead of =
 
     prev->next = front;
-    front->back = prev;  // FIXED: Ensure `front` is not nullptr before accessing `back`
+    front->back = prev; // FIXED: Ensure `front` is not nullptr before accessing `back`
 
     kNode->next = nullptr;
     kNode->back = nullptr;
@@ -116,12 +124,15 @@ Node* delKthNode(Node* head, int k){
     return head;
 }
 
-void delNode(Node* temp){
-    if(temp == NULL) return;
-    Node* prev = temp->back;
-    Node* front = temp->next;
+void delNode(Node *temp)
+{
+    if (temp == NULL)
+        return;
+    Node *prev = temp->back;
+    Node *front = temp->next;
 
-    if(front == nullptr){
+    if (front == nullptr)
+    {
         prev->next = nullptr;
         temp->back = nullptr;
         free(temp);
@@ -136,51 +147,99 @@ void delNode(Node* temp){
     free(temp);
 }
 
-Node* insertHead(Node* head, int val){
-    Node* newNode = new Node(val, head, nullptr);
+Node *insertHead(Node *head, int val)
+{
+    Node *newNode = new Node(val, head, nullptr);
     head->back = newNode;
     return newNode;
 }
 
-Node* insertBeforeTail(Node* head, int val){
-    if(head->next == NULL) return insertHead(head,val);
-    Node* tail = head;
-    while(tail->next != nullptr) tail = tail->next;
-    Node* prev = tail->back;
-    Node* temp = new Node(val,tail,prev);
-    tail->back =  temp;
+Node *insertBeforeTail(Node *head, int val)
+{
+    if (head->next == NULL)
+        return insertHead(head, val);
+    Node *tail = head;
+    while (tail->next != nullptr)
+        tail = tail->next;
+    Node *prev = tail->back;
+    Node *temp = new Node(val, tail, prev);
+    tail->back = temp;
     prev->next = temp;
 
     return head;
 }
 
-Node* insertBeforeKthEle(Node* head,int ele, int k){
-    if(k == 1){
+Node *insertBeforeKthEle(Node *head, int ele, int k)
+{
+    if (k == 1)
+    {
         return insertHead(head, ele);
     }
 
-    Node* kNode = head;
-    int cnt =0;
+    Node *kNode = head;
+    int cnt = 0;
 
-    while(kNode!= NULL){
+    while (kNode != NULL)
+    {
         cnt++;
-        if(cnt == k) break;
+        if (cnt == k)
+            break;
         kNode = kNode->next;
     }
 
-    Node* prev = kNode->back;
-    Node* temp = new Node(ele,kNode,prev);
+    Node *prev = kNode->back;
+    Node *temp = new Node(ele, kNode, prev);
     kNode->back = temp;
     prev->next = temp;
 
     return head;
 }
 
-void insertBeforeNode(Node* temp, int val){
-    Node* prev = temp->back;
-    Node* newNode = new Node(val,temp,prev);
+void insertBeforeNode(Node *temp, int val)
+{
+    Node *prev = temp->back;
+    Node *newNode = new Node(val, temp, prev);
     prev->next = newNode;
     temp->back = newNode;
+}
+
+// Reverse dll using stack, Tc - O(n) and SC - O(n) the stack
+void reverseDllStack(Node *head)
+{
+    Node *temp = head;
+    stack<int> st = {};
+
+    while (temp != nullptr)
+    {
+        st.push(temp->data);
+        temp = temp->next;
+    }
+
+    temp = head;
+    while (temp != nullptr)
+    {
+        temp->data = st.top();
+        st.pop();
+        temp = temp->next;
+    }
+}
+
+// Reverse a dll by swapping links, no SC, only TC - O(n)
+Node *reverseDll(Node *head)
+{
+    if (head->next == nullptr && head->back == nullptr)
+        return head; // Single element ll
+    Node *current_node = head;
+    Node *last = nullptr;
+    while (current_node != nullptr)
+    {
+        last = current_node->back;
+        current_node->back = current_node->next;
+        current_node->next = last;
+        current_node = current_node->back;
+    }
+    free(current_node);
+    return last->back;
 }
 
 int main()
@@ -189,7 +248,7 @@ int main()
     Node *head = createDll(arr);
     printList(head);
     // head = delHead(head);
-    int k; cin >> k;
+    // int k; cin >> k;
     // int ele; cin >> ele;
     // head = delTail(head);
     // head = delKthNode(head,k);
@@ -197,7 +256,9 @@ int main()
     // head = insertHead(head,k);
     // head = insertBeforeTail(head,k);
     // head = insertBeforeKthEle(head,ele,k);
-    insertBeforeNode(head->next->next,k);
+    // insertBeforeNode(head->next->next,k);
+    // reverseDllStack(head);
+    head = reverseDll(head);
     printList(head);
     return 0;
 }
