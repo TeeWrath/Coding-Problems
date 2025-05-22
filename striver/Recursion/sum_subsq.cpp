@@ -9,31 +9,34 @@ void printArray(vector<int> &arr) {
     cout << endl;
 }
 
-bool printSubsequences(vector<int> &arr, int idx, vector<int> &res, int sum, int s) {
+int printSubsequences(vector<int> &arr, int idx, vector<int> &res, int sum, int s) {
     if (idx == arr.size()) {
         if(s == sum){
-            printArray(res);
-            return true;
+            // printArray(res);
+            return 1;
         }
-        else return false;
+        else return 0;
     }
     
     // Include the current element
     res.push_back(arr[idx]);
     s += arr[idx];
-    if(printSubsequences(arr, idx + 1, res, sum,s)) return true;
+    // if(printSubsequences(arr, idx + 1, res, sum,s)) return true;
+    int left = printSubsequences(arr,idx +1,res,sum,s);
     
     // Exclude the current element (remove the last added element)
     s -= arr[idx];
     res.pop_back();
-    if(printSubsequences(arr, idx + 1, res,sum,s)) return true;
+    // if(printSubsequences(arr, idx + 1, res,sum,s)) return true;
+    int right = printSubsequences(arr,idx +1,res,sum,s);
 
-    return false;
+    return left + right;
 }
 
 int main() {
     vector<int> arr = {1, 2, 1,5,2,4,5,9,7,3,6,5,11};
+    // vector<int> arr = {1,2,1};
     vector<int> res;
-    printSubsequences(arr, 0, res,25,0);
+    cout << printSubsequences(arr, 0, res,25,0);
     return 0;
 }
