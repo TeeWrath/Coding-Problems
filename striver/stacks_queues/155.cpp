@@ -93,6 +93,49 @@ class MinStackPair {
         }
     };
 
+// Most optimum solution
+class MinStackMaxOptimum {
+    public:
+        stack<long long> st;
+        long long minimum = INT_MAX;
+        
+        MinStackMaxOptimum() {
+        }
+        
+        void push(int val) {
+            if (st.empty()) {
+                st.push(val);
+                minimum = val;
+                return;
+            }
+            if (val < minimum) {
+                st.push(2LL * val - minimum); // Use 2LL to avoid overflow
+                minimum = val;
+            } else {
+                st.push(val);
+            }
+        }
+        
+        void pop() {
+            if (st.empty()) return; // Safety check
+            if (st.top() < minimum) {
+                minimum = 2LL * minimum - st.top(); // Restore previous minimum
+            }
+            st.pop();
+        }
+        
+        int top() {
+            if (st.top() < minimum) {
+                return minimum; // Return the actual value (not the encoded value)
+            }
+            return st.top();
+        }
+        
+        int getMin() {
+            return minimum;
+        }
+    };
+
 int main()
 {
     MinStack mn = MinStack();
