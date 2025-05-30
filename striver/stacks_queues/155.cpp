@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// My solution, very bad in time complexity
 class StackNode
 {
 public:
@@ -63,6 +64,34 @@ public:
         cout << endl;
     }
 };
+
+// Better solution - using pairs
+class MinStackPair {
+    public:
+        stack<pair<int,int>> st;
+        MinStackPair() {
+            
+        }
+        
+        void push(int val) {
+            int x;
+            if(st.empty()) x = val;
+            else x = min(st.top().second,val);
+            st.push({val,x});
+        }
+        
+        void pop() {
+            st.pop();
+        }
+        
+        int top() {
+            return st.top().first;
+        }
+        
+        int getMin() {
+            return st.top().second;
+        }
+    };
 
 int main()
 {
