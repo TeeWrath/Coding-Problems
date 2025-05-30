@@ -1,0 +1,86 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class StackNode
+{
+public:
+    int val;
+    StackNode *next;
+    int minVal;
+
+public:
+    StackNode()
+    {
+        next = nullptr;
+        minVal = INT_MAX;
+    }
+};
+
+class MinStack
+{
+public:
+    // StackNode st;
+    StackNode *stackTop = new StackNode();
+    MinStack()
+    {
+    }
+
+    void push(int val)
+    {
+        StackNode *tmp = new StackNode();
+        tmp->val = val;
+        tmp->next = stackTop;
+        tmp->minVal = min(tmp->val, stackTop->minVal);
+        stackTop = tmp;
+        cout << "Pushed element into the stack: " << val << endl;
+    }
+
+    void pop()
+    {
+        StackNode *tmp = stackTop;
+        cout << "Popping element out: " << stackTop->val << endl;
+        stackTop = stackTop->next;
+        delete tmp;
+    }
+
+    int top()
+    {
+        return stackTop->val;
+    }
+
+    int getMin()
+    {
+        return stackTop->minVal;
+    }
+
+    void printStack(){
+        StackNode* tmp = stackTop;
+        cout << "Current status of stack: ";
+        while(tmp != nullptr){
+            cout << tmp->val << " ";
+            tmp = tmp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+    MinStack mn = MinStack();
+    mn.printStack();
+    mn.push(-2);
+    mn.printStack();
+    mn.push(0);
+    mn.printStack();
+    mn.push(-3);
+    mn.printStack();
+    cout << "Current Minimum: " << mn.getMin() << endl;
+    mn.printStack();
+    mn.pop();
+    mn.printStack();
+    cout << "Current top element: " << mn.top() << endl;
+    mn.printStack();
+    cout << "Current Minimum: " << mn.getMin() << endl;
+    mn.printStack();
+    return 0;
+}
