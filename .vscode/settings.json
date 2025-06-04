@@ -3,6 +3,13 @@
         "*.html": "html",
         "*.js": "javascriptreact",
         "cstdio": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp",
+        "any": "cpp",
+        "string_view": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "stacktrace": "cpp",
+        "regex": "cpp"
     }
 }
