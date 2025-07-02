@@ -67,14 +67,68 @@ bool isFound(TreeNode* root, int k, map<int,int> &mpp){
     return lh || rh;
 }
 
-bool findTarget(TreeNode* root, int k) {
+bool findTargets(TreeNode* root, int k) {
     if(!root)return false;
     map<int,int> mpp;
     return isFound(root,k,mpp);
 }
 
+class BSTIterator{
+    stack<TreeNode*> mystack;
+    // reverse = true -> before()
+    // reverse = false -> next()
+    bool reverse = true;
+
+public:
+    BSTIterator(TreeNode* root,bool isReverse){
+        reverse = isReverse;
+
+    }
+
+    bool hasNext(){
+        return !mystack.empty();
+    }
+
+    int next(){
+        TreeNode* tmp = mystack.top();
+        mystack.pop();
+        if(!reverse)pushAll(tmp->right);
+        else pushAll(tmp->left);
+        return tmp->val;
+    }
+
+private:
+    void pushAll(TreeNode* node){
+        for(;node != NULL;){
+            mystack.push(node);
+            if(reverse == true)node= node->right;
+            else node = node->left;
+        }
+    }
+
+};
+
+class Solution {
+    public:
+    bool findTarget(TreeNode* root, int k) {
+        if(!root)return false;
+        BSTIterator l(root,false);
+        BSTIterator r(root,true);
+
+        int i = l.next();
+        int j = r.next();
+
+        while(i<j){
+            if(i+j == k)return true;
+            else if(i+j <k)i= l.next();
+            else j = r.next();
+        }
+        return false;
+    }
+    };
+
 int main(){
     TreeNode* root = createBST();
-    cout << findTarget(root,28) << endl;
+    cout << Solution().findTarget(root,28) << endl;
     return 0;
 }
