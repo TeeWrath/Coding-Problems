@@ -81,10 +81,24 @@ TreeNode* inordersuccesor(TreeNode* root, TreeNode* p){
     return successor;
 }
 
+TreeNode* inorderpredecessor(TreeNode* root, TreeNode* p){
+    TreeNode* successor = NULL;
+
+    while(root){
+        if(p->val <= root->val)root = root->left;
+        else{
+            successor = root;
+            root = root->right;
+        }
+    }
+
+    return successor;
+}
+
 
 int main(){
     TreeNode* root = createBST();
     TreeNode* p = new TreeNode(8);
-    cout << inordersuccesor(root,p)->val << endl;
+    cout << inorderpredecessor(root,p)->val << endl;
     return 0;
 }
