@@ -10,6 +10,16 @@
         "ranges": "cpp",
         "span": "cpp",
         "stacktrace": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "bitset": "cpp",
+        "coroutine": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "system_error": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp",
+        "text_encoding": "cpp"
     }
 }
