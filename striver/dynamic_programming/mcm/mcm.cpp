@@ -21,6 +21,4 @@ int matrixMultiplication(vector<int> &arr, int N)
 
     vector<vector<int>> dp(N,vector<int>(N,-1));
 
-    return f(i,j,arr,dp);
-
-}
+    return f(i,j,arr,dp);}
