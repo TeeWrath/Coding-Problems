@@ -48,11 +48,12 @@ vi g[N];
 int a[N];
 
 void solve() {
-  int i, j, n=0;
+  int i, j;
+  int a[6][6];
   for( i=1;i<=5;i++){
     for(j=1;j<=5;j++){
-        cin >> n;
-        if(n==1){
+        cin >> a[i][j];
+        if(a[i][j]==1){
             cout << abs(i-3) + abs(j-3)<< endl;
         }
     }
@@ -63,11 +64,11 @@ int main() {
     // ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     // srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    int t = 1;
-    cin >> t;
-    while(t--) {
+    // int t = 1;
+    // cin >> t;
+    // while(t--) {
       solve();
-    }
+    // }
 
     return 0;
 }
