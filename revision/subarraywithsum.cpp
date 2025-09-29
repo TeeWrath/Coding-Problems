@@ -57,6 +57,8 @@ void solve() {
     cin >> el;
     arr.push_back(el);
   }
+
+  // better sol
   map<ll,int> prefixSum;
   ll sum =0;
   int maxlen=0;
@@ -74,6 +76,25 @@ void solve() {
     }
 
     if(prefixSum.find(sum) == prefixSum.end())prefixSum[sum]=i;
+  }
+
+// most optimized - two pointer approach
+  ll sum=arr[0];
+  int r=0,l=0;
+  int maxlen=0;
+
+  while(r<n){
+    while(l<=r && sum > k){
+        sum -= arr[l];
+        l++;
+    }
+
+    if(sum == k){
+        maxlen = max(maxlen,r-l+1);
+    }
+
+    r++;
+    if(r<n)sum += arr[r];
   }
   cout << maxlen << " answer";
 }
