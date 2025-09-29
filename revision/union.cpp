@@ -48,14 +48,65 @@ vi g[N];
 int a[N];
 
 void solve() {
-  int i, j, n, m;
+  int i=0, j=0, n, m;
+  cout << "Value n : ";
+  cin >> n;
+  cout << "Value of m: ";
+  cin >> m;
+  vi arr1,arr2,ans;
+  fo(i,n){
+    int el;
+    cout << i << "th element of arr1: ";
+    cin >> el;
+    arr1.push_back(el);
+  }
+
+  fo(i,m){
+    int el;
+    cout << i << "th element of arr2: ";
+    cin >> el;
+    arr2.push_back(el);
+  }
+
+  i=0;j=0;
+  while(i<n && j<m){
+    if(arr1[i] == arr2[j]){
+        if(ans.empty() || ans.back() != arr1[i])ans.push_back(arr1[i]);
+        i++;j++;
+    }
+    else if(arr1[i] < arr2[j]){
+        if(ans.empty() || ans.back() != arr1[i])ans.push_back(arr1[i]);
+        i++;
+    }
+    else if(arr1[i] > arr2[j]){
+        if(ans.empty() || ans.back() != arr2[j])ans.push_back(arr2[j]);
+        j++;
+    }
+  }
+
+  if(i<n){
+    while(i<n){
+        ans.push_back(arr1[i]);
+        i++;
+    }
+  }
+  if(j<m){
+    while(j<m){
+        ans.push_back(arr2[j]);
+        j++;
+    }
+  }
+
+  cout << "Answer array: "<< endl;
+  pA(ans);
 }
 
 int main() {
-    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    srand(chrono::high_resolution_clock::now().time_since_epoch().count());
+    // ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    // srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
     int t = 1;
+    cout << "Test cases: ";
     cin >> t;
     while(t--) {
       solve();
