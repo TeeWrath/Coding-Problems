@@ -55,3 +55,20 @@ public:
         return maxSum;
     }
 };
+
+// New correct approach, dealing with negative numbers too
+class Solution {
+    public:
+        int maxSubArray(vector<int>& nums) {
+            int n = nums.size();
+            int sum = nums[0];
+            int cnt=nums[0];
+    
+            for(int i=1;i<n;i++){
+                cnt = max(nums[i], cnt + nums[i]);
+                sum = max(cnt,sum);
+            }
+    
+            return sum;
+        }
+    };
