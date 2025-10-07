@@ -4,24 +4,15 @@ using namespace std;
 class Solution {
     public:
         int subarraySum(vector<int>& nums, int k) {
-            int n = nums.size();
-            if(n==1)return k == nums[0] ? 1 : 0;
-            int i=0,j=0;
-            int cnt=0;
-            int sum=nums[0];
-            while(i<n && j<n){
-                if(sum==k){
-                    cnt++;
-                    j++;
-                    sum+= nums[j];
-                }
-                else if(sum > k){
-                    sum -= nums[i];
-                    i++;
-                }else{
-                    j++;
-                    sum+= nums[j];
-                }
+            unordered_map<int,int> mpp;
+            mpp[0] = 1;
+            int presum = 0,cnt=0;
+
+            for(int i=0;i<nums.size();i++){
+                presum += nums[i];
+                int remove = presum - k;
+                cnt += mpp[remove];
+                mpp[presum] += 1;
             }
 
             return cnt;
