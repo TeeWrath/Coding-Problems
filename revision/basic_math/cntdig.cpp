@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+void printArray(vector<int> &num){
+    for(int i=0;i <num.size();i++){
+        cout<< num[i] << " ";
+    }
+    cout << endl;
+}
+
 int countDigits(int n){
     int cnt=0;
     int cpy = n;
@@ -55,9 +62,31 @@ bool isArmstrong(int n){
     return sum == n;
 }
 
+int printDivisors(int n){
+    int m = sqrt(n);
+    vector<int> div;
+    for(int i=1;i<= m;i++){
+        if(n%i == 0){
+            div.push_back(i);
+            if(i != n/i) div.push_back(n/i);
+        }
+    }
+
+    return div.size();
+
+}
+
+bool isPrime(int n){
+    int l = printDivisors(n);
+    return l == 2;
+}
+
 int main(){
-    int n,m; cin >> n;
-    int res = isArmstrong(n);
-    cout << "The number of digits are: "<< res << endl;
+    // int n,m; cin >> n;
+    // int res = isArmstrong(n);
+    // cout << "The number of digits are: "<< res << endl;
+    int n; cin >> n;
+    int res = isPrime(n);
+    cout << res<<endl;
     return 0;
 }
