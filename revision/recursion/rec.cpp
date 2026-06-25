@@ -23,11 +23,23 @@ int factorial(int n){
     return factorial(n-1) * n;
 }
 
-int main(){
-    int n; cin >> n;
-    // oneToN(n,1);
+void countFreq(vector<int> &nums){
+    map<int,int> mpp;
+    for(int i=0;i<nums.size();i++){
+        mpp[nums[i]]++;
+    }
 
-    int res = factorial(n);
-    cout << res<<endl;
+    for(auto i:mpp){
+        cout << "Frequency of "<< i.first << " is: " << i.second << endl;
+    }
+}
+
+int main(){
+    // int n; cin >> n;
+    // // oneToN(n,1);
+    vector<int> nums = {1,2,3,5,4,5,4,1,2,23,1,5,4,1,1,1,2,2,6,6,5,4,8,4};
+    countFreq(nums);
+    // int res = factorial(n);
+    // cout << res<<endl;
     return 0;
 }
