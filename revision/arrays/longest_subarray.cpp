@@ -23,8 +23,8 @@ int bruteLongestSubarrayWithSumK(vector<int> &nums, int k)
     return maxCnt;
 }
 
-// optimal approach
-int longestSubarrayWithSumK(vector<int> &nums, int k)
+// optimal approach - two pointer (this is optimal for array with positives only)
+int longest2SubarrayWithSumK(vector<int> &nums, int k)
 {
     int n = nums.size();
     int maxCnt = 0;
@@ -34,7 +34,7 @@ int longestSubarrayWithSumK(vector<int> &nums, int k)
     while (i < n && j < n)
     {
         sum += nums[j];
-        while (i<=j && sum > k)
+        while (i <= j && sum > k)
         {
             sum -= nums[i];
             i++;
@@ -49,6 +49,33 @@ int longestSubarrayWithSumK(vector<int> &nums, int k)
     }
 
     return maxCnt;
+}
+
+// optimal for array with both pos and negs, but better approach for pos only
+int longestSubarrayWithSumK(vector<int> &nums, int k)
+{
+    int n = nums.size();
+    long long sum = 0;
+    int len = 0;
+    map<long long, int> hashmap;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += nums[i];
+        if(sum == k){
+            len = max(len,i+1);
+        }
+        if (hashmap.find(sum - k) != hashmap.end())
+        {
+            len = max(len, i - hashmap[sum - k]);
+        }
+        if(hashmap.find(sum) == hashmap.end()){
+            hashmap[sum] = i;
+        }
+        
+    }
+
+    return len;
 }
 
 int main()
