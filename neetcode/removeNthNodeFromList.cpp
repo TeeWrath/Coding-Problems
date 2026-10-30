@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-// UNDERSTAND THE RECURSIVE AND TWO POINTER SOLUTION
 struct ListNode
 {
     int val;
@@ -43,6 +42,45 @@ public:
     }
 };
 
+// recursive sol
+class SolutionR {
+private:
+    ListNode* rec(ListNode* head,int& n){
+        if(!head)return nullptr;
+
+        head->next = rec(head->next,n);
+        n--;
+        if(n==0)return head->next;
+        return head;
+    }
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        return rec(head,n);
+    }
+};
+
+// two pointer approach
+class SolutionP {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode dummy(0,head);
+        ListNode* l = &dummy;
+        ListNode* r = head;
+
+        while(n>0){
+            r = r->next;
+            n--;
+        }
+
+        while(r){
+            l = l->next;
+            r = r->next;
+        }
+        l->next = l->next->next;
+        return dummy.next;
+    }
+};
+
 
 ListNode *build(vector<int> vals)
 {
@@ -76,7 +114,7 @@ int main()
         cout << "Enter nth node to be deleted from last: ";
         int n; cin >> n;
         cout << endl;
-        head = Solution().removeNthFromEnd(head,n);
+        head = SolutionP().removeNthFromEnd(head,n);
         cout << "out: ";
         print(head);
         cout << endl;
